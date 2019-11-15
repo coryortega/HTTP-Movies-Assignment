@@ -2,36 +2,60 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import MovieCard from "./MovieCard";
-export default class MovieList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      movies: []
-    };
-  }
+// export default class MovieList extends Component {
+//   constructor(props) {
+//     console.log(props.movies)
+//     super(props);
+//     this.state = {
+//       movies: props.movies
+//     };
+//   }
+//   componentDidMount() {
+//     axios
+//       .get("http://localhost:5000/api/movies")
+//       .then(res => this.setState({ movies: res.data }))
+//       .catch(err => console.log(err.response));
+//   }
 
-  componentDidMount() {
-    axios
-      .get("http://localhost:5000/api/movies")
-      .then(res => this.setState({ movies: res.data }))
-      .catch(err => console.log(err.response));
-  }
+//   render() {
 
-  render() {
+//     console.log(this.state.movies)
+
+//     return (
+//       <div className="movie-list">
+//         {this.state.movies.map(movie => (
+//           <MovieDetails key={movie.id} movie={movie} />
+//         ))}
+//       </div>
+//     );
+//   }
+// }
+
+// function MovieDetails({ movie }) {
+//   return (
+//     <Link to={`/movies/${movie.id}`}>
+//       <MovieCard movie={movie} />
+//     </Link>
+//   );
+// }
+
+function MovieList(props) {
+
+  function MovieDetails({ movie }) {
     return (
-      <div className="movie-list">
-        {this.state.movies.map(movie => (
-          <MovieDetails key={movie.id} movie={movie} />
-        ))}
-      </div>
+      <Link to={`/movies/${movie.id}`}>
+        <MovieCard movie={movie} />
+      </Link>
     );
   }
-}
 
-function MovieDetails({ movie }) {
   return (
-    <Link to={`/movies/${movie.id}`}>
-      <MovieCard movie={movie} />
-    </Link>
+    <div className="movie-list">
+    {props.movies.map(movie => (
+      <MovieDetails key={movie.id} movie={movie} />
+    ))}
+  </div>
   );
 }
+
+export default MovieList;
